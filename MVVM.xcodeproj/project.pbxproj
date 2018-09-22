@@ -18,12 +18,14 @@
 		F74E754F211B99CD0096EED3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F74E754D211B99CD0096EED3 /* LaunchScreen.storyboard */; };
 		F74E7573211B9A7B0096EED3 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74E7572211B9A7B0096EED3 /* Router.swift */; };
 		F74E7576211B9AE30096EED3 /* UIStoryboard+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74E7575211B9AE30096EED3 /* UIStoryboard+Extensions.swift */; };
-		F74E7579211B9BA30096EED3 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74E7578211B9BA30096EED3 /* SearchService.swift */; };
+		F74E7579211B9BA30096EED3 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74E7578211B9BA30096EED3 /* MovieService.swift */; };
 		F74E757D211B9BEF0096EED3 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74E757C211B9BEF0096EED3 /* APIClient.swift */; };
 		F74E757F211BA0030096EED3 /* SearchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74E757E211BA0030096EED3 /* SearchServiceTests.swift */; };
 		F74E7581211BA0290096EED3 /* places.json in Resources */ = {isa = PBXBuildFile; fileRef = F74E7580211BA0290096EED3 /* places.json */; };
 		F74E7583211BA0990096EED3 /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74E7582211BA0990096EED3 /* MockAPIClient.swift */; };
 		F74E7585211BAD8E0096EED3 /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74E7584211BAD8E0096EED3 /* MovieListViewModel.swift */; };
+		F766A6212156DC2300C2AB5B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F766A6202156DC2300C2AB5B /* SearchViewController.swift */; };
+		F766A6232156DC2C00C2AB5B /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F766A6222156DC2C00C2AB5B /* SearchViewModel.swift */; };
 		F7BD139C213F3AE100C3144B /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BD139B213F3AE100C3144B /* Dependencies.swift */; };
 		F7BD139E213F3B7C00C3144B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BD139D213F3B7C00C3144B /* Constants.swift */; };
 		F7D5861E21446CFA007F7ABD /* MockSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D5861D21446CFA007F7ABD /* MockSearchService.swift */; };
@@ -59,12 +61,14 @@
 		F74E755B211B99CE0096EED3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F74E7572211B9A7B0096EED3 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		F74E7575211B9AE30096EED3 /* UIStoryboard+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extensions.swift"; sourceTree = "<group>"; };
-		F74E7578211B9BA30096EED3 /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		F74E7578211B9BA30096EED3 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
 		F74E757C211B9BEF0096EED3 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		F74E757E211BA0030096EED3 /* SearchServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceTests.swift; sourceTree = "<group>"; };
 		F74E7580211BA0290096EED3 /* places.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = places.json; sourceTree = "<group>"; };
 		F74E7582211BA0990096EED3 /* MockAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIClient.swift; sourceTree = "<group>"; };
 		F74E7584211BAD8E0096EED3 /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
+		F766A6202156DC2300C2AB5B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		F766A6222156DC2C00C2AB5B /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		F7BD139B213F3AE100C3144B /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		F7BD139D213F3B7C00C3144B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F7D5861D21446CFA007F7ABD /* MockSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchService.swift; sourceTree = "<group>"; };
@@ -135,7 +139,8 @@
 		F74E7543211B99CC0096EED3 /* MVVM */ = {
 			isa = PBXGroup;
 			children = (
-				F77FAF4521459FAA00F39E38 /* SearchResults */,
+				F766A61F2156DC1700C2AB5B /* Search */,
+				F77FAF4521459FAA00F39E38 /* MovieList */,
 				F74E757B211B9BDD0096EED3 /* Model */,
 				F74E7574211B9ACA0096EED3 /* Extensions */,
 				F74E7544211B99CC0096EED3 /* AppDelegate.swift */,
@@ -174,7 +179,7 @@
 		F74E757B211B9BDD0096EED3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F74E7578211B9BA30096EED3 /* SearchService.swift */,
+				F74E7578211B9BA30096EED3 /* MovieService.swift */,
 				F74E757C211B9BEF0096EED3 /* APIClient.swift */,
 				F7BD139B213F3AE100C3144B /* Dependencies.swift */,
 				F7BD139D213F3B7C00C3144B /* Constants.swift */,
@@ -182,13 +187,22 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		F77FAF4521459FAA00F39E38 /* SearchResults */ = {
+		F766A61F2156DC1700C2AB5B /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				F766A6202156DC2300C2AB5B /* SearchViewController.swift */,
+				F766A6222156DC2C00C2AB5B /* SearchViewModel.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		F77FAF4521459FAA00F39E38 /* MovieList */ = {
 			isa = PBXGroup;
 			children = (
 				F74E7546211B99CC0096EED3 /* MovieListViewController.swift */,
 				F74E7584211BAD8E0096EED3 /* MovieListViewModel.swift */,
 			);
-			path = SearchResults;
+			path = MovieList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,10 +364,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F74E7547211B99CC0096EED3 /* MovieListViewController.swift in Sources */,
+				F766A6212156DC2300C2AB5B /* SearchViewController.swift in Sources */,
 				F74E7585211BAD8E0096EED3 /* MovieListViewModel.swift in Sources */,
 				F74E7573211B9A7B0096EED3 /* Router.swift in Sources */,
-				F74E7579211B9BA30096EED3 /* SearchService.swift in Sources */,
+				F74E7579211B9BA30096EED3 /* MovieService.swift in Sources */,
 				F7BD139C213F3AE100C3144B /* Dependencies.swift in Sources */,
+				F766A6232156DC2C00C2AB5B /* SearchViewModel.swift in Sources */,
 				F74E7576211B9AE30096EED3 /* UIStoryboard+Extensions.swift in Sources */,
 				F74E7545211B99CC0096EED3 /* AppDelegate.swift in Sources */,
 				F74E757D211B9BEF0096EED3 /* APIClient.swift in Sources */,

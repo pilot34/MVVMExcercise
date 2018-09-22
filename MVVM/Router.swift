@@ -2,21 +2,35 @@
 //  Router.swift
 //  MVVM
 //
-//  Created by  Gleb Tarasov on 09/08/2018.
+//  Created by  Gleb Tarasov on 22/09/2018.
 //  Copyright © 2018 Gleb Tarasov. All rights reserved.
 //
 
 import UIKit
 
-class Router {
+protocol RouterProtocol {
+    func showMovieList(query: String)
+}
+
+class Router: RouterProtocol {
     private let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
     private let dependencies = Dependencies()
 
+    private var navigationController: UINavigationController?
+
     func rootViewController() -> UIViewController {
-        let vc = mainStoryboard.instantiate(type: MovieListViewController.self)
-        let viewModel = MovieListViewModel(service: dependencies.search)
+        let vc = mainStoryboard.instantiate(type: SearchViewController.self)
+        let viewModel = SearchViewModel(router: self)
         vc.viewModel = viewModel
         let nav = UINavigationController(rootViewController: vc)
+        self.navigationController = nav
         return nav
+    }
+
+    func showMovieList(query: String) {
+        let vc = mainStoryboard.instantiate(type: MovieListViewController.self)
+        let viewModel = MovieListViewModel(service: dependencies.movies)
+        vc.viewModel = viewModel
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

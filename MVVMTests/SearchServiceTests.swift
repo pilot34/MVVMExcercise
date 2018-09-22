@@ -2,7 +2,7 @@
 //  SearchServiceTests.swift
 //  MVVMTests
 //
-//  Created by  Gleb Tarasov on 09/08/2018.
+//  Created by  Gleb Tarasov on 22/09/2018.
 //  Copyright © 2018 Gleb Tarasov. All rights reserved.
 //
 
@@ -17,7 +17,7 @@ class SearchServiceTests: XCTestCase {
     func testParsing() {
         let scheduler = TestScheduler()
         let client = MockAPIClient(file: "places")
-        let service = SearchService(client: client)
+        let service = MovieService(client: client)
 
         let search = scheduler.record(service.search(query: "blabla"))
         scheduler.start()

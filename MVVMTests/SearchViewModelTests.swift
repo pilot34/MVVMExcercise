@@ -2,7 +2,7 @@
 //  SearchViewModelTests.swift
 //  MVVMTests
 //
-//  Created by  Gleb Tarasov on 07/09/2018.
+//  Created by  Gleb Tarasov on 22/09/2018.
 //  Copyright © 2018 Gleb Tarasov. All rights reserved.
 //
 
@@ -55,7 +55,7 @@ class SearchViewModelTests: XCTestCase {
         vm.bindSearch(input: search.asObservable())
         let errorIsHidden = scheduler.record(vm.errorIsHidden)
         let errorText = scheduler.record(vm.errorText)
-/Users/gleb/projects/MVVMExcercise/MVVMTests/TestScheduler+Extensions.swift        let activityIsAnimating = scheduler.record(vm.activityIsAnimating)
+        let activityIsAnimating = scheduler.record(vm.activityIsAnimating)
         let tableIsHidden = scheduler.record(vm.tableIsHidden)
         let cells = scheduler.record(vm.cells)
         scheduler.start()

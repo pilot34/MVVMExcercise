@@ -2,7 +2,7 @@
 //  MockSearchService.swift
 //  MVVMTests
 //
-//  Created by  Gleb Tarasov on 08/09/2018.
+//  Created by  Gleb Tarasov on 22/09/2018.
 //  Copyright © 2018 Gleb Tarasov. All rights reserved.
 //
 
@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 @testable import MVVM
 
-class MockSearchService: SearchServiceProtocol {
+class MockSearchService: MovieServiceProtocol {
 
     enum TestError: LocalizedError {
         case error

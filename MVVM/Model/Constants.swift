@@ -8,4 +8,5 @@
 
 import Foundation
 
-let baseURL = URL(string: "https://nominatim.openstreetmap.org")!
+let baseURL = URL(string: "https://api.themoviedb.org/3/")!
+let apiKey = "2696829a81b1b5827d515ff121700838"

@@ -2,7 +2,7 @@
 //  MockAPIClient.swift
 //  MVVMTests
 //
-//  Created by  Gleb Tarasov on 09/08/2018.
+//  Created by  Gleb Tarasov on 22/09/2018.
 //  Copyright © 2018 Gleb Tarasov. All rights reserved.
 //
 

@@ -10,10 +10,10 @@ import Foundation
 
 class Dependencies {
     let client: APIClient
-    let search: SearchService
+    let movies: MovieService
 
     init() {
         client = APIClient(baseURL: baseURL)
-        search = SearchService(client: client)
+        movies = MovieService(client: client)
     }
 }

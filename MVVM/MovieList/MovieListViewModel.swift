@@ -2,7 +2,7 @@
 //  SearchViewModel.swift
 //  MVVM
 //
-//  Created by  Gleb Tarasov on 09/08/2018.
+//  Created by  Gleb Tarasov on 22/09/2018.
 //  Copyright © 2018 Gleb Tarasov. All rights reserved.
 //
 
@@ -15,9 +15,9 @@ struct MovieCellViewModel {
     let subtitle: String
     let didSelect: () -> Void
 
-    init(place: Place, didSelect: @escaping () -> Void) {
-        title = place.displayName
-        subtitle = "\(place.lat), \(place.lon)"
+    init(movie: Movie, didSelect: @escaping () -> Void) {
+        title = movie.title
+        subtitle = ""
         self.didSelect = didSelect
     }
 }
@@ -60,7 +60,7 @@ class MovieListViewModel {
         }
     }
 
-    private let service: SearchServiceProtocol
+    private let service: MovieServiceProtocol
     private let disposeBag = DisposeBag()
 
     var title: String {
@@ -72,10 +72,10 @@ class MovieListViewModel {
     }
     private let innerData: BehaviorRelay<State> = BehaviorRelay(value: .empty)
 
-    var didSelectPlace: Signal<Place> {
-        return innerDidSelectPlace.asSignal()
+    var didSelectMovie: Signal<Movie> {
+        return innerDidSelectMovie.asSignal()
     }
-    private let innerDidSelectPlace: PublishRelay<Place> = PublishRelay()
+    private let innerDidSelectMovie: PublishRelay<Movie> = PublishRelay()
 
     var activityIsAnimating: Driver<Bool> {
         return data.map { $0.showActivity }
@@ -100,47 +100,44 @@ class MovieListViewModel {
             .filterNil()
     }
 
-    init(service: SearchServiceProtocol) {
+    init(service: MovieServiceProtocol) {
         self.service = service
     }
 
-    func bindSearch(input: Observable<String?>) {
-        let innerDidSelectPlace = self.innerDidSelectPlace
-        let innerData = self.innerData
-
-        let places = input
-            .asObservable()
-            .throttle(0.3, latest: true, scheduler: MainScheduler.instance)
-            .filterNil()
-            .map {
-                innerData.accept(.loading)
-                return $0
-            }
-            .flatMap { [service] text in
-                service.search(query: text).asObservable()
-            }
-
-        let viewModels: Observable<Void> = places
-            .map { arr in
-                let arr = arr.map { place in
-                    return MovieCellViewModel(place: place, didSelect: {
-                        innerDidSelectPlace.accept(place)
-                    })
-                }
-                return arr
-            }
-            .map {
-                innerData.accept(.rows($0))
-            }
-
-        viewModels.subscribe(
-            onNext: { _ in },
-            onError: { error in
-                let err = (error as? LocalizedError)?.localizedDescription ?? ""
-                innerData.accept(.error(err))
-            },
-            onCompleted: nil,
-            onDisposed: nil
-        ).disposed(by: disposeBag)
+    func bindSearch(input: Driver<String?>) {
+//        let innerDidSelectMovie = self.innerDidSelectMovie
+//        let innerData = self.innerData
+//
+//        let movies: Driver<SearchResponse> = input
+//            .throttle(0.3, latest: true)
+//            .map {
+//                innerData.accept(.loading)
+//                return $0
+//            }
+//            .flatMap { [service] text in
+//                if text.isEmpty {
+//                    return .empty()
+//                }
+//                return service.search(query: text).asDriver(onErrorRecover: { error in
+//                    let err = (error as? LocalizedError)?.localizedDescription ?? ""
+//                    innerData.accept(.error(err))
+//                    return .empty()
+//                })
+//            }
+//
+//        let viewModels: Driver<Void> = movies
+//            .map { arr in
+//                let arr = arr.results.map { movie in
+//                    return MovieCellViewModel(movie: movie, didSelect: {
+//                        innerDidSelectMovie.accept(movie)
+//                    })
+//                }
+//                return arr
+//            }
+//            .map {
+//                innerData.accept(.rows($0))
+//            }
+//
+//        viewModels.drive().disposed(by: disposeBag)
     }
 }
