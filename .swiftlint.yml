@@ -1,0 +1,8 @@
+excluded:
+  - MVVMTests
+  - MVVMUITests
+  - Pods
+identifier_name:
+  min_length:
+    error: 0
+    warning: 0
