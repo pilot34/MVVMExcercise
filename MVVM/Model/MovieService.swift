@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-struct Movie: Codable {
+struct Movie: Codable, Equatable {
     let id: Int
     let title: String
     let overview: String

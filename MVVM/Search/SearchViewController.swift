@@ -54,19 +54,22 @@ class SearchViewController: UIViewController {
             .bind(to: viewModel.searchTapped)
             .disposed(by: disposeBag)
 
+        textField.rx.text
+            .bind(to: viewModel.searchText)
+            .disposed(by: disposeBag)
+
         searchButton.rx.tap
             .map { [weak self] in return self?.textField.text }
             .bind(to: viewModel.searchTapped)
             .disposed(by: disposeBag)
 
+        viewModel.searchButtonIsEnabled
+            .drive(searchButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+
         RxKeyboard.instance.isHidden.drive(onNext: { [weak self] hidden in
             self?.animateKeyboardAppearance(hidden: hidden)
         }).disposed(by: disposeBag)
-
-        textField.rx.text
-            .map { [textIsValid = viewModel.textIsValid] in textIsValid($0) }
-            .bind(to: searchButton.rx.isEnabled)
-            .disposed(by: disposeBag)
     }
 
     private func animateKeyboardAppearance(hidden: Bool) {

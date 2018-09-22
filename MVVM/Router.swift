@@ -10,6 +10,7 @@ import UIKit
 
 protocol RouterProtocol {
     func showMovieList(query: String)
+    func showError(text: String)
 }
 
 class Router: RouterProtocol {
@@ -32,5 +33,11 @@ class Router: RouterProtocol {
         let viewModel = MovieListViewModel(service: dependencies.movies)
         vc.viewModel = viewModel
         navigationController?.pushViewController(vc, animated: true)
+    }
+
+    func showError(text: String) {
+        let vc = UIAlertController(title: text, message: nil, preferredStyle: .alert)
+        vc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        navigationController?.present(vc, animated: true, completion: nil)
     }
 }

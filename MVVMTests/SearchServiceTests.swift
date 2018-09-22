@@ -14,22 +14,23 @@ import RxCocoa
 
 class SearchServiceTests: XCTestCase {
 
-    func testParsing() {
+    func testCorrectJSONIsParsedCorrectly() {
         let scheduler = TestScheduler()
-        let client = MockAPIClient(file: "places")
+        let client = MockAPIClient(file: "movies")
         let service = MovieService(client: client)
 
         let search = scheduler.record(service.search(query: "blabla"))
         scheduler.start()
         XCTAssertEqual(2, search.events.count)
-        let places = search.events.first?.value.element
-        XCTAssertNotNil(places)
-        XCTAssertTrue(places?.count ?? 0 > 0)
+        let response = search.events.first?.value.element
+        XCTAssertNotNil(response)
+        XCTAssertTrue(response?.results.count ?? 0 > 0)
         
-        let place = (places?.first)!
-        XCTAssertEqual(place.displayName,  "Barnes & Noble Cafe, 235, Daniel Webster Highway, South Nashua, Ward 7, Nashua, Hillsborough County, New Hampshire, 03060, United States of America")
-        XCTAssertEqual(place.lat, "42.710832")
-        XCTAssertEqual(place.lon, "-71.4429025")
+        let movie = (response?.results.first)!
+        let desiredMovie = Movie(id: 268,
+                                 title: "Batman",
+                                 overview: "The Dark Knight of Gotham City begins his war on crime with his first major enemy being the clownishly homicidal Joker, who has seized control of Gotham's underworld.")
+        XCTAssertEqual(movie, desiredMovie)
     }
 }
 

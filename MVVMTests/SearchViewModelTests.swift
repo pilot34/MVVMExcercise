@@ -14,76 +14,102 @@ import RxCocoa
 
 
 class SearchViewModelTests: XCTestCase {
-    func testError() {
-        let vm = MovieListViewModel(service: MockSearchService.error)
+    func testSearchButtonIsEnabledAndDisabledCorrectly() {
+        let vm = SearchViewModel(router: MockRouter())
         let scheduler = TestScheduler()
 
-        let search = scheduler.createColdObservable([.next(25, "test" as String?)]).asDriver(onErrorJustReturn: nil)
-        vm.bindSearch(input: search.asObservable())
-        let errorIsHidden = scheduler.record(vm.errorIsHidden)
-        let errorText = scheduler.record(vm.errorText)
-        let activityIsAnimating = scheduler.record(vm.activityIsAnimating)
-        let tableIsHidden = scheduler.record(vm.tableIsHidden)
-        let cells = scheduler.record(vm.cells)
+        let search = scheduler.createColdObservable([
+            .next(25, "test" as String?),
+            .next(50, "q" as String?),
+            .next(75, "bla" as String?),
+            .next(100, "" as String?),
+            .next(150, "test" as String?),
+            .next(200, "test2" as String?),
+        ]).asDriver(onErrorJustReturn: nil)
+
+        let disposeBag = DisposeBag()
+        search.drive(vm.searchText).disposed(by: disposeBag)
+
+        let buttonIsEnabled = scheduler.record(vm.searchButtonIsEnabled)
         scheduler.start()
 
-        XCTAssertEqual(errorIsHidden.events.count, 3)
-        XCTAssertEqual(errorText.events.count, 3)
-        XCTAssertEqual(activityIsAnimating.events.count, 3)
-        XCTAssertEqual(tableIsHidden.events.count, 3)
-        XCTAssertEqual(cells.events.count, 0)
-
-        // loading
-        XCTAssertTrue(errorIsHidden.events[1].value.element!)
-        XCTAssertNil(errorText.events[1].value.element!)
-        XCTAssertTrue(activityIsAnimating.events[1].value.element!)
-        XCTAssertTrue(tableIsHidden.events[1].value.element!)
-
-        // error occured
-        XCTAssertFalse(errorIsHidden.events[2].value.element!)
-        XCTAssertEqual(errorText.events[2].value.element!, "TestError")
-        XCTAssertFalse(activityIsAnimating.events[2].value.element!)
-        XCTAssertTrue(tableIsHidden.events[2].value.element!)
+        XCTAssertEqual(buttonIsEnabled.events, [
+            .next(0, false),
+            .next(25, true),
+            .next(50, false),
+            .next(75, true),
+            .next(100, false),
+            .next(150, true),
+            .next(200, true),
+            ])
     }
 
-    func testSearch() {
-        let service = MockSearchService.simple
-        let vm = MovieListViewModel(service: service)
-        let scheduler = TestScheduler()
+    func testSearchIsShownAfterValidText() {
+        let router = MockRouter()
+        let vm = SearchViewModel(router: router)
 
-        let search = scheduler.createColdObservable([.next(25, "test" as String?)]).asDriver(onErrorJustReturn: nil)
-        vm.bindSearch(input: search.asObservable())
-        let errorIsHidden = scheduler.record(vm.errorIsHidden)
-        let errorText = scheduler.record(vm.errorText)
-        let activityIsAnimating = scheduler.record(vm.activityIsAnimating)
-        let tableIsHidden = scheduler.record(vm.tableIsHidden)
-        let cells = scheduler.record(vm.cells)
-        scheduler.start()
+        XCTAssertEqual(router.lastCall, LastCall.none)
+        vm.searchText.accept("test")
+        vm.searchTapped.accept(())
+        XCTAssertEqual(router.lastCall, LastCall.showMovieList(query: "test"))
 
-        XCTAssertEqual(errorIsHidden.events.count, 3)
-        XCTAssertEqual(errorText.events.count, 3)
-        XCTAssertEqual(activityIsAnimating.events.count, 3)
-        XCTAssertEqual(tableIsHidden.events.count, 3)
-        XCTAssertEqual(cells.events.count, 1)
+        vm.searchText.accept("G G \n")
+        vm.searchTapped.accept(())
+        XCTAssertEqual(router.lastCall, LastCall.showMovieList(query: "G G"))
 
-        // loading
-        XCTAssertTrue(errorIsHidden.events[1].value.element!)
-        XCTAssertNil(errorText.events[1].value.element!)
-        XCTAssertTrue(activityIsAnimating.events[1].value.element!)
-        XCTAssertTrue(tableIsHidden.events[1].value.element!)
+        vm.searchText.accept(" GGG")
+        vm.searchTapped.accept(())
+        XCTAssertEqual(router.lastCall, LastCall.showMovieList(query: "GGG"))
+    }
 
-        // data loaded
-        XCTAssertTrue(errorIsHidden.events[2].value.element!)
-        XCTAssertNil(errorText.events[2].value.element!)
-        XCTAssertFalse(activityIsAnimating.events[2].value.element!)
-        XCTAssertFalse(tableIsHidden.events[2].value.element!)
+    func testErrorIsShownAfterInvalidText() {
+        let router = MockRouter()
+        let vm = SearchViewModel(router: router)
 
-        // check cells
-        let vms = cells.events[0].value.element!
-        XCTAssertEqual(vms.count, 3)
-        let vm1 = vms[0]
-        XCTAssertEqual(vm1.title, "Test1")
-        XCTAssertEqual(vm1.subtitle, "10, 10")
-        XCTAssertEqual(service.lastQuery, "test")
+        XCTAssertEqual(router.lastCall, LastCall.none)
+        // empty string is invalid
+        vm.searchText.accept("")
+        vm.searchTapped.accept(())
+        XCTAssertEqual(router.lastCall,
+                       LastCall.showError(text: "Minimum search query length is 2 symbols"))
+
+        // reset back to non-error state
+        vm.searchText.accept("qq")
+        vm.searchTapped.accept(())
+        XCTAssertEqual(router.lastCall, LastCall.showMovieList(query: "qq"))
+
+        // one character is invalid, we accept only 2+ chars
+        vm.searchText.accept("1")
+        vm.searchTapped.accept(())
+        XCTAssertEqual(router.lastCall,
+                       LastCall.showError(text: "Minimum search query length is 2 symbols"))
+
+        // reset back to non-error state
+        vm.searchText.accept("qq")
+        vm.searchTapped.accept(())
+        XCTAssertEqual(router.lastCall, LastCall.showMovieList(query: "qq"))
+
+        vm.searchText.accept("\n\t")
+        vm.searchTapped.accept(())
+        XCTAssertEqual(router.lastCall,
+                       LastCall.showError(text: "Minimum search query length is 2 symbols"))
+
+        vm.searchText.accept("qq")
+        vm.searchTapped.accept(())
+        XCTAssertEqual(router.lastCall, LastCall.showMovieList(query: "qq"))
+
+        vm.searchText.accept(nil)
+        vm.searchTapped.accept(())
+        XCTAssertEqual(router.lastCall,
+                       LastCall.showError(text: "Minimum search query length is 2 symbols"))
+
+        vm.searchText.accept("qq")
+        vm.searchTapped.accept(())
+        XCTAssertEqual(router.lastCall, LastCall.showMovieList(query: "qq"))
+
+        vm.searchText.accept("      \n   ")
+        vm.searchTapped.accept(())
+        XCTAssertEqual(router.lastCall,
+                       LastCall.showError(text: "Minimum search query length is 2 symbols"))
     }
 }
