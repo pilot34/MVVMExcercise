@@ -22,4 +22,12 @@ class SearchViewModel {
             }
         }).disposed(by: disposeBag)
     }
+
+    func textIsValid(_ text: String?) -> Bool {
+        guard let text = text else {
+            return false
+        }
+        return text.count >= minimumLengthToSearch
+    }
+    private let minimumLengthToSearch = 1
 }

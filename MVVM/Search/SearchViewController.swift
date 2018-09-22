@@ -62,6 +62,11 @@ class SearchViewController: UIViewController {
         RxKeyboard.instance.isHidden.drive(onNext: { [weak self] hidden in
             self?.animateKeyboardAppearance(hidden: hidden)
         }).disposed(by: disposeBag)
+
+        textField.rx.text
+            .map { [textIsValid = viewModel.textIsValid] in textIsValid($0) }
+            .bind(to: searchButton.rx.isEnabled)
+            .disposed(by: disposeBag)
     }
 
     private func animateKeyboardAppearance(hidden: Bool) {
