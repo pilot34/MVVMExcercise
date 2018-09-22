@@ -15,7 +15,7 @@ import RxCocoa
 
 class SearchViewModelTests: XCTestCase {
     func testError() {
-        let vm = SearchViewModel(service: MockSearchService.error)
+        let vm = MovieListViewModel(service: MockSearchService.error)
         let scheduler = TestScheduler()
 
         let search = scheduler.createColdObservable([.next(25, "test" as String?)]).asDriver(onErrorJustReturn: nil)
@@ -48,14 +48,14 @@ class SearchViewModelTests: XCTestCase {
 
     func testSearch() {
         let service = MockSearchService.simple
-        let vm = SearchViewModel(service: service)
+        let vm = MovieListViewModel(service: service)
         let scheduler = TestScheduler()
 
         let search = scheduler.createColdObservable([.next(25, "test" as String?)]).asDriver(onErrorJustReturn: nil)
         vm.bindSearch(input: search.asObservable())
         let errorIsHidden = scheduler.record(vm.errorIsHidden)
         let errorText = scheduler.record(vm.errorText)
-        let activityIsAnimating = scheduler.record(vm.activityIsAnimating)
+/Users/gleb/projects/MVVMExcercise/MVVMTests/TestScheduler+Extensions.swift        let activityIsAnimating = scheduler.record(vm.activityIsAnimating)
         let tableIsHidden = scheduler.record(vm.tableIsHidden)
         let cells = scheduler.record(vm.cells)
         scheduler.start()

@@ -13,8 +13,8 @@ class Router {
     private let dependencies = Dependencies()
 
     func rootViewController() -> UIViewController {
-        let vc = mainStoryboard.instantiate(type: SearchViewController.self)
-        let viewModel = SearchViewModel(service: dependencies.search)
+        let vc = mainStoryboard.instantiate(type: MovieListViewController.self)
+        let viewModel = MovieListViewModel(service: dependencies.search)
         vc.viewModel = viewModel
         let nav = UINavigationController(rootViewController: vc)
         return nav

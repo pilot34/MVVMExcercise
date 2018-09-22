@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-struct SearchCellViewModel {
+struct MovieCellViewModel {
     let title: String
     let subtitle: String
     let didSelect: () -> Void
@@ -22,13 +22,13 @@ struct SearchCellViewModel {
     }
 }
 
-class SearchViewModel {
+class MovieListViewModel {
 
     enum State {
         case loading
         case empty
         case error(String)
-        case rows([SearchCellViewModel])
+        case rows([MovieCellViewModel])
 
         var errorText: String? {
             switch self {
@@ -50,7 +50,7 @@ class SearchViewModel {
             }
         }
 
-        var tableData: [SearchCellViewModel]? {
+        var tableData: [MovieCellViewModel]? {
             switch self {
             case let .rows(arr) where !arr.isEmpty:
                 return arr
@@ -93,7 +93,7 @@ class SearchViewModel {
         return data.map { $0.tableData == nil }
     }
 
-    var cells: Observable<[SearchCellViewModel]> {
+    var cells: Observable<[MovieCellViewModel]> {
         return data
             .map { $0.tableData }
             .asObservable()
@@ -123,7 +123,7 @@ class SearchViewModel {
         let viewModels: Observable<Void> = places
             .map { arr in
                 let arr = arr.map { place in
-                    return SearchCellViewModel(place: place, didSelect: {
+                    return MovieCellViewModel(place: place, didSelect: {
                         innerDidSelectPlace.accept(place)
                     })
                 }

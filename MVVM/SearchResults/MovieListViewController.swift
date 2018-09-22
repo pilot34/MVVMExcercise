@@ -1,5 +1,5 @@
 //
-//  SearchViewController.swift
+//  SearchResultsViewController.swift
 //  MVVM
 //
 //  Created by  Gleb Tarasov on 09/08/2018.
@@ -10,16 +10,16 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class SearchCell: UITableViewCell {
-    func display(viewModel: SearchCellViewModel) {
+class MovieCell: UITableViewCell {
+    func display(viewModel: MovieCellViewModel) {
         textLabel?.text = viewModel.title
         detailTextLabel?.text = viewModel.subtitle
     }
 }
 
-class SearchViewController: UIViewController {
+class MovieListViewController: UIViewController {
 
-    var viewModel: SearchViewModel!
+    var viewModel: MovieListViewModel!
 
     @IBOutlet private var searchBar: UISearchBar!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
@@ -55,7 +55,7 @@ class SearchViewController: UIViewController {
             .disposed(by: disposeBag)
 
         viewModel.cells.bind(to: tableView.rx
-            .items(cellIdentifier: "SearchCell", cellType: SearchCell.self)) { _, element, cell in
+            .items(cellIdentifier: "MovieCell", cellType: MovieCell.self)) { _, element, cell in
             cell.display(viewModel: element)
         }.disposed(by: disposeBag)
     }
