@@ -11,13 +11,36 @@ import RxSwift
 import RxCocoa
 
 struct MovieCellViewModel {
-    let title: String
-    let subtitle: String
+    let posterURL: URL?
+    let title: String?
+    let releaseDate: String?
+    let overview: String?
+
     let didSelect: () -> Void
+
+    private static let dateFormatter: DateFormatter = {
+        let df = DateFormatter()
+        df.dateStyle = .short
+        df.timeStyle = .none
+        return df
+    }()
 
     init(movie: Movie, didSelect: @escaping () -> Void) {
         title = movie.title
-        subtitle = ""
+        overview = movie.overview
+
+        if let rd = movie.releaseDate {
+            releaseDate = MovieCellViewModel.dateFormatter.string(from: rd)
+        } else {
+            releaseDate = nil
+        }
+
+        if let pp = movie.posterPath {
+            posterURL = posterURLPrefix.appendingPathComponent(pp)
+        } else {
+            posterURL = nil
+        }
+
         self.didSelect = didSelect
     }
 }

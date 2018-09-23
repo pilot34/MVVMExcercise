@@ -1,4 +1,5 @@
 PODS:
+  - Nuke (7.4)
   - RxCocoa (4.3.1):
     - RxSwift (~> 4.0)
   - RxKeyboard (0.8.3):
@@ -10,6 +11,7 @@ PODS:
   - SwiftLint (0.27.0)
 
 DEPENDENCIES:
+  - Nuke
   - RxCocoa
   - RxKeyboard
   - RxTest
@@ -17,6 +19,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Nuke
     - RxCocoa
     - RxKeyboard
     - RxSwift
@@ -24,12 +27,13 @@ SPEC REPOS:
     - SwiftLint
 
 SPEC CHECKSUMS:
+  Nuke: 2a1a0166bf522257c1fc1be4cad5e60b7960c789
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
   RxKeyboard: e5efbaa109c35be909dd888e53de0f0efdf5169e
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
   RxTest: ea97a208826906f3904c0debdd09575ebcbfe216
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: b5e27218fc6b4d1b6bec1c542357053f67cc9508
+PODFILE CHECKSUM: b1e472a4784907bad6186ab3e2ee23600e7cd52b
 
 COCOAPODS: 1.5.3

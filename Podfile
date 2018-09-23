@@ -6,6 +6,7 @@ inhibit_all_warnings!
 def common_pods
     pod 'RxCocoa'
     pod 'RxKeyboard'
+    pod 'Nuke'
 end
 
 target :MVVM do

@@ -67,7 +67,10 @@ class MovieListViewModelTests: XCTestCase {
             XCTAssertEqual(vms.count, 3)
             let vm1 = vms[0]
             XCTAssertEqual(vm1.title, "title1")
-            XCTAssertEqual(vm1.subtitle, "")
+            XCTAssertEqual(vm1.overview, "overview1")
+            XCTAssertEqual(vm1.releaseDate, "12/21/01")
+            XCTAssertEqual(vm1.posterURL, URL(string: "https://image.tmdb.org/t/p/w185/1.jpg")!)
+            XCTAssertEqual(vm1.title, "title1")
             XCTAssertEqual(service.lastQuery, "test")
         }
 }

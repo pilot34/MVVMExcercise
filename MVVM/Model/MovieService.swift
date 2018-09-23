@@ -12,7 +12,9 @@ import RxSwift
 struct Movie: Codable, Equatable {
     let id: Int
     let title: String
-    let overview: String
+    let overview: String?
+    let releaseDate: Date?
+    let posterPath: String?
 }
 
 struct SearchResponse: Codable {
