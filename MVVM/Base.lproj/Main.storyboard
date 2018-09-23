@@ -49,6 +49,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.37254901959999998" green="0.67843137249999996" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="wbm-rv-HnE" firstAttribute="height" secondItem="ayJ-Iq-FRx" secondAttribute="height" multiplier="0.1" priority="250" id="787-oe-AcM"/>
@@ -133,6 +134,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.37254901959999998" green="0.67843137249999996" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="5V2-j6-i4b" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Q1A-Ep-rZN"/>
@@ -159,4 +161,5 @@
             <point key="canvasLocation" x="140" y="133.5832083958021"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.37254901959999998" green="0.67843137249999996" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
 </document>

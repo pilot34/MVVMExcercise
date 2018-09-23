@@ -34,28 +34,27 @@ class MovieListViewController: UIViewController {
     }
 
     private func bind() {
-//        title = viewModel.title
-//        viewModel.bindSearch(input: searchBar.rx.text.asObservable())
-//
-//        viewModel.activityIsAnimating
-//            .drive(activityIndicator.rx.isAnimating)
-//            .disposed(by: disposeBag)
-//
-//        viewModel.errorIsHidden
-//            .drive(errorLabel.rx.isHidden)
-//            .disposed(by: disposeBag)
-//
-//        viewModel.errorText
-//            .drive(errorLabel.rx.text)
-//            .disposed(by: disposeBag)
-//
-//        viewModel.tableIsHidden
-//            .drive(tableView.rx.isHidden)
-//            .disposed(by: disposeBag)
-//
-//        viewModel.cells.bind(to: tableView.rx
-//            .items(cellIdentifier: "MovieCell", cellType: MovieCell.self)) { _, element, cell in
-//            cell.display(viewModel: element)
-//        }.disposed(by: disposeBag)
+        title = viewModel.title
+
+        viewModel.activityIsAnimating
+            .drive(activityIndicator.rx.isAnimating)
+            .disposed(by: disposeBag)
+
+        viewModel.errorIsHidden
+            .drive(errorLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        viewModel.errorText
+            .drive(errorLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.tableIsHidden
+            .drive(tableView.rx.isHidden)
+            .disposed(by: disposeBag)
+
+        viewModel.cells.bind(to: tableView.rx
+            .items(cellIdentifier: "MovieCell", cellType: MovieCell.self)) { _, element, cell in
+            cell.display(viewModel: element)
+        }.disposed(by: disposeBag)
     }
 }

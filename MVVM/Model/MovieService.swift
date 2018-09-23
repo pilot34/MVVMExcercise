@@ -30,7 +30,7 @@ struct SearchResponse: Codable {
 }
 
 protocol MovieServiceProtocol {
-    func search(query: String) -> Single<SearchResponse>
+    func search(query: String, page: Int) -> Single<SearchResponse>
 }
 
 class MovieService: MovieServiceProtocol {
@@ -39,12 +39,12 @@ class MovieService: MovieServiceProtocol {
         self.client = client
     }
 
-    func search(query: String) -> Single<SearchResponse> {
+    func search(query: String, page: Int) -> Single<SearchResponse> {
         return client.request(method: .get,
                               path: "search/movie",
                               parameters: [
                                 "api_key": apiKey,
-                                "page": 1,
+                                "page": page,
                                 "query": query
             ])
     }

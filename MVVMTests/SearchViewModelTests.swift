@@ -12,7 +12,6 @@ import RxSwift
 import RxCocoa
 @testable import MVVM
 
-
 class SearchViewModelTests: XCTestCase {
     func testSearchButtonIsEnabledAndDisabledCorrectly() {
         let vm = SearchViewModel(router: MockRouter())

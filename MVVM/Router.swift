@@ -30,7 +30,7 @@ class Router: RouterProtocol {
 
     func showMovieList(query: String) {
         let vc = mainStoryboard.instantiate(type: MovieListViewController.self)
-        let viewModel = MovieListViewModel(service: dependencies.movies)
+        let viewModel = MovieListViewModel(query: query, service: dependencies.movies)
         vc.viewModel = viewModel
         navigationController?.pushViewController(vc, animated: true)
     }

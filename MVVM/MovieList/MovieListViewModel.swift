@@ -24,7 +24,7 @@ struct MovieCellViewModel {
 
 class MovieListViewModel {
 
-    enum State {
+    private enum State {
         case loading
         case empty
         case error(String)
@@ -61,6 +61,7 @@ class MovieListViewModel {
     }
 
     private let service: MovieServiceProtocol
+    private let query: String
     private let disposeBag = DisposeBag()
 
     var title: String {
@@ -100,44 +101,39 @@ class MovieListViewModel {
             .filterNil()
     }
 
-    init(service: MovieServiceProtocol) {
+    init(query: String, service: MovieServiceProtocol) {
+        self.query = query
         self.service = service
+
+        loadFirstPage()
     }
 
-    func bindSearch(input: Driver<String?>) {
-//        let innerDidSelectMovie = self.innerDidSelectMovie
-//        let innerData = self.innerData
-//
-//        let movies: Driver<SearchResponse> = input
-//            .throttle(0.3, latest: true)
-//            .map {
-//                innerData.accept(.loading)
-//                return $0
-//            }
-//            .flatMap { [service] text in
-//                if text.isEmpty {
-//                    return .empty()
-//                }
-//                return service.search(query: text).asDriver(onErrorRecover: { error in
-//                    let err = (error as? LocalizedError)?.localizedDescription ?? ""
-//                    innerData.accept(.error(err))
-//                    return .empty()
-//                })
-//            }
-//
-//        let viewModels: Driver<Void> = movies
-//            .map { arr in
-//                let arr = arr.results.map { movie in
-//                    return MovieCellViewModel(movie: movie, didSelect: {
-//                        innerDidSelectMovie.accept(movie)
-//                    })
-//                }
-//                return arr
-//            }
-//            .map {
-//                innerData.accept(.rows($0))
-//            }
-//
-//        viewModels.drive().disposed(by: disposeBag)
+    func loadFirstPage() {
+        let innerDidSelectMovie = self.innerDidSelectMovie
+        let innerData = self.innerData
+
+        innerData.accept(.loading)
+        let movies: Driver<SearchResponse> = service
+            .search(query: query, page: 1)
+            .asDriver(onErrorRecover: { error in
+                let err = (error as? LocalizedError)?.localizedDescription ?? ""
+                innerData.accept(.error(err))
+                return .empty()
+            })
+
+        let viewModels: Driver<Void> = movies
+            .map { arr in
+                let arr = arr.results.map { movie in
+                    return MovieCellViewModel(movie: movie, didSelect: {
+                        innerDidSelectMovie.accept(movie)
+                    })
+                }
+                return arr
+            }
+            .map {
+                innerData.accept(.rows($0))
+            }
+
+        viewModels.drive().disposed(by: disposeBag)
     }
 }

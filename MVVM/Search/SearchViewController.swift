@@ -50,7 +50,6 @@ class SearchViewController: UIViewController {
 
     private func bind() {
         textField.rx.controlEvent(.editingDidEndOnExit)
-            .map { [weak self] in return self?.textField.text }
             .bind(to: viewModel.searchTapped)
             .disposed(by: disposeBag)
 
@@ -59,7 +58,6 @@ class SearchViewController: UIViewController {
             .disposed(by: disposeBag)
 
         searchButton.rx.tap
-            .map { [weak self] in return self?.textField.text }
             .bind(to: viewModel.searchTapped)
             .disposed(by: disposeBag)
 
