@@ -15,3 +15,4 @@ let globalTintColor = UIColor(red: 95.0/255,
                               green: 173.0/255,
                               blue: 89.0/255,
                               alpha: 1)
+let firstPage = 1

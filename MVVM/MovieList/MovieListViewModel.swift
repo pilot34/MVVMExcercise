@@ -107,7 +107,7 @@ class MovieListViewModel {
 
         bindLoadMore()
         // pages are counted from 1 on backend
-        loadPage(pageIndex: 1)
+        loadPage(pageIndex: firstPage)
     }
 
     private func bindLoadMore() {
@@ -134,7 +134,7 @@ class MovieListViewModel {
         }
     }
 
-    func loadPage(pageIndex: Int) {
+    private func loadPage(pageIndex: Int) {
         let innerDidSelectMovie = self.innerDidSelectMovie
         let innerData = self.innerData
 
@@ -144,15 +144,13 @@ class MovieListViewModel {
             innerData.accept(.loading)
         }
 
-        let movies: Driver<SearchResponse> = service
+        service
             .search(query: query, page: pageIndex)
             .asDriver(onErrorRecover: { error in
                 let err = (error as? LocalizedError)?.localizedDescription ?? ""
                 innerData.accept(.error(err))
                 return .empty()
             })
-
-        movies
             .map { page in
                 let arr = page.results.map { movie in
                     return MovieCellViewModel(movie: movie, didSelect: {

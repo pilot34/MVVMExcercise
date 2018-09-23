@@ -27,6 +27,15 @@ class MockMovieService: MovieServiceProtocol {
         }
     }
 
+    static var empty: MockMovieService {
+        let s = MockMovieService()
+        s.result = SearchResponse(page: 1,
+                                  totalResults: 0,
+                                  totalPages: 0,
+                                  results: [])
+        return s
+    }
+
     static func simple(totalPages: Int = 1) -> MockMovieService {
         let s = MockMovieService()
 
