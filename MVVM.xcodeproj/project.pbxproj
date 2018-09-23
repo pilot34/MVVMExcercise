@@ -26,6 +26,9 @@
 		F74E7585211BAD8E0096EED3 /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F74E7584211BAD8E0096EED3 /* MovieListViewModel.swift */; };
 		F7557C872156F5C6009FEC9F /* MockRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7557C862156F5C6009FEC9F /* MockRouter.swift */; };
 		F7557C892156F76A009FEC9F /* MovieListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7557C882156F76A009FEC9F /* MovieListViewModelTests.swift */; };
+		F7557C8F2157D956009FEC9F /* MovieCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7557C8E2157D956009FEC9F /* MovieCellViewModel.swift */; };
+		F7557C912157DC11009FEC9F /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7557C902157DC11009FEC9F /* MovieCell.swift */; };
+		F7557C932157DDD5009FEC9F /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7557C922157DDD5009FEC9F /* UITableView+Extensions.swift */; };
 		F766A6212156DC2300C2AB5B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F766A6202156DC2300C2AB5B /* SearchViewController.swift */; };
 		F766A6232156DC2C00C2AB5B /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F766A6222156DC2C00C2AB5B /* SearchViewModel.swift */; };
 		F7BD139C213F3AE100C3144B /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BD139B213F3AE100C3144B /* Dependencies.swift */; };
@@ -71,6 +74,9 @@
 		F74E7584211BAD8E0096EED3 /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
 		F7557C862156F5C6009FEC9F /* MockRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRouter.swift; sourceTree = "<group>"; };
 		F7557C882156F76A009FEC9F /* MovieListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModelTests.swift; sourceTree = "<group>"; };
+		F7557C8E2157D956009FEC9F /* MovieCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellViewModel.swift; sourceTree = "<group>"; };
+		F7557C902157DC11009FEC9F /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
+		F7557C922157DDD5009FEC9F /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		F766A6202156DC2300C2AB5B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		F766A6222156DC2C00C2AB5B /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		F7BD139B213F3AE100C3144B /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
@@ -178,6 +184,7 @@
 			children = (
 				F74E7575211B9AE30096EED3 /* UIStoryboard+Extensions.swift */,
 				F718FA5C2141E88C002B911D /* Observable+Extensions.swift */,
+				F7557C922157DDD5009FEC9F /* UITableView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -207,6 +214,8 @@
 			children = (
 				F74E7546211B99CC0096EED3 /* MovieListViewController.swift */,
 				F74E7584211BAD8E0096EED3 /* MovieListViewModel.swift */,
+				F7557C902157DC11009FEC9F /* MovieCell.swift */,
+				F7557C8E2157D956009FEC9F /* MovieCellViewModel.swift */,
 			);
 			path = MovieList;
 			sourceTree = "<group>";
@@ -369,11 +378,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7557C932157DDD5009FEC9F /* UITableView+Extensions.swift in Sources */,
+				F7557C912157DC11009FEC9F /* MovieCell.swift in Sources */,
 				F74E7547211B99CC0096EED3 /* MovieListViewController.swift in Sources */,
 				F766A6212156DC2300C2AB5B /* SearchViewController.swift in Sources */,
 				F74E7585211BAD8E0096EED3 /* MovieListViewModel.swift in Sources */,
 				F74E7573211B9A7B0096EED3 /* Router.swift in Sources */,
 				F74E7579211B9BA30096EED3 /* MovieService.swift in Sources */,
+				F7557C8F2157D956009FEC9F /* MovieCellViewModel.swift in Sources */,
 				F7BD139C213F3AE100C3144B /* Dependencies.swift in Sources */,
 				F766A6232156DC2C00C2AB5B /* SearchViewModel.swift in Sources */,
 				F74E7576211B9AE30096EED3 /* UIStoryboard+Extensions.swift in Sources */,

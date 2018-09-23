@@ -27,28 +27,28 @@ class MockMovieService: MovieServiceProtocol {
         }
     }
 
-    static var simple: MockMovieService {
+    static func simple(totalPages: Int = 1) -> MockMovieService {
         let s = MockMovieService()
 
         s.result = SearchResponse(
             page: 1,
             totalResults: 3,
-            totalPages: 1,
+            totalPages: totalPages,
             results: [
                 Movie(id: 1,
                       title: "title1",
                       overview: "overview1",
-                      releaseDate: movieDateFormatter.date(from: "2001-12-21")!,
+                      releaseDate: "2001-12-21",
                       posterPath: "/1.jpg"),
                 Movie(id: 2,
                       title: "title2",
                       overview: "overview2",
-                      releaseDate: movieDateFormatter.date(from: "2002-12-22")!,
+                      releaseDate: "2002-12-22",
                       posterPath: "/2.jpg"),
                 Movie(id: 3,
                       title: "title3",
                       overview: "overview3",
-                      releaseDate: movieDateFormatter.date(from: "2003-12-23")!,
+                      releaseDate: "2003-12-23",
                       posterPath: "/3.jpg"),
                 ])
         return s
@@ -68,7 +68,12 @@ class MockMovieService: MovieServiceProtocol {
     func search(query: String, page: Int) -> Single<SearchResponse> {
         self.lastQuery = query
         if let result = result {
-            return Single.just(result)
+            // patch page number for correct result
+            let withPage = SearchResponse(page: page,
+                                          totalResults: result.totalResults,
+                                          totalPages: result.totalPages,
+                                          results: result.results)
+            return Single.just(withPage)
         } else if let error = error {
             return Single.error(error)
         } else {

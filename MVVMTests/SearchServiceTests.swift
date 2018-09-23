@@ -30,7 +30,7 @@ class SearchServiceTests: XCTestCase {
         let desiredMovie = Movie(id: 268,
                                  title: "Batman",
                                  overview: "The Dark Knight of Gotham City begins his war on crime with his first major enemy being the clownishly homicidal Joker, who has seized control of Gotham's underworld.",
-                                 releaseDate: movieDateFormatter.date(from: "1989-06-23"),
+                                 releaseDate: "1989-06-23",
                                  posterPath: "/kBf3g9crrADGMc2AMAMlLBgSm2h.jpg")
         XCTAssertEqual(movie, desiredMovie)
     }

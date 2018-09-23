@@ -10,55 +10,26 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-struct MovieCellViewModel {
-    let posterURL: URL?
-    let title: String?
-    let releaseDate: String?
-    let overview: String?
-
-    let didSelect: () -> Void
-
-    private static let dateFormatter: DateFormatter = {
-        let df = DateFormatter()
-        df.dateStyle = .short
-        df.timeStyle = .none
-        return df
-    }()
-
-    init(movie: Movie, didSelect: @escaping () -> Void) {
-        title = movie.title
-        overview = movie.overview
-
-        if let rd = movie.releaseDate {
-            releaseDate = MovieCellViewModel.dateFormatter.string(from: rd)
-        } else {
-            releaseDate = nil
-        }
-
-        if let pp = movie.posterPath {
-            posterURL = posterURLPrefix.appendingPathComponent(pp)
-        } else {
-            posterURL = nil
-        }
-
-        self.didSelect = didSelect
-    }
-}
-
 class MovieListViewModel {
+
+    private struct TableData {
+        let rows: [MovieCellViewModel]
+        let page: Int
+        let hasMore: Bool
+    }
 
     private enum State {
         case loading
         case empty
         case error(String)
-        case rows([MovieCellViewModel])
+        case rows(TableData)
 
         var errorText: String? {
             switch self {
             case let .error(error):
                 return error
-            case let .rows(arr) where arr.isEmpty:
-                return "No data"
+            case let .rows(data) where data.rows.isEmpty:
+                return "No data found"
             default:
                 return nil
             }
@@ -73,10 +44,10 @@ class MovieListViewModel {
             }
         }
 
-        var tableData: [MovieCellViewModel]? {
+        fileprivate var tableData: TableData? {
             switch self {
-            case let .rows(arr) where !arr.isEmpty:
-                return arr
+            case let .rows(data) where !data.rows.isEmpty:
+                return data
             default:
                 return nil
             }
@@ -91,15 +62,21 @@ class MovieListViewModel {
         return "Search Places"
     }
 
+    // MARK: - Input
+
+    let refreshTriggered: PublishRelay<Void> = PublishRelay()
+    let loadMoreTriggered: PublishRelay<Void> = PublishRelay()
+
+    // MARK: - Inner relays
+
+    private let innerData: BehaviorRelay<State> = BehaviorRelay(value: .empty)
+    private let innerDidSelectMovie: PublishRelay<Movie> = PublishRelay()
+
     private var data: Driver<State> {
         return innerData.asDriver()
     }
-    private let innerData: BehaviorRelay<State> = BehaviorRelay(value: .empty)
 
-    var didSelectMovie: Signal<Movie> {
-        return innerDidSelectMovie.asSignal()
-    }
-    private let innerDidSelectMovie: PublishRelay<Movie> = PublishRelay()
+    // MARK: - Output
 
     var activityIsAnimating: Driver<Bool> {
         return data.map { $0.showActivity }
@@ -119,7 +96,7 @@ class MovieListViewModel {
 
     var cells: Observable<[MovieCellViewModel]> {
         return data
-            .map { $0.tableData }
+            .map { $0.tableData?.rows }
             .asObservable()
             .filterNil()
     }
@@ -128,16 +105,47 @@ class MovieListViewModel {
         self.query = query
         self.service = service
 
-        loadFirstPage()
+        bindLoadMore()
+        // pages are counted from 1 on backend
+        loadPage(pageIndex: 1)
     }
 
-    func loadFirstPage() {
+    private func bindLoadMore() {
+        loadMoreTriggered.subscribe(onNext: { [weak self] in
+            self?.loadMore()
+        }).disposed(by: disposeBag)
+    }
+
+    private func loadMore() {
+        guard canLoadMore() else {
+            return
+        }
+
+        let nextPage = (innerData.value.tableData?.page ?? 0) + 1
+        loadPage(pageIndex: nextPage)
+    }
+
+    private func canLoadMore() -> Bool {
+        switch innerData.value {
+        case let .rows(data):
+            return data.hasMore
+        default:
+            return false
+        }
+    }
+
+    func loadPage(pageIndex: Int) {
         let innerDidSelectMovie = self.innerDidSelectMovie
         let innerData = self.innerData
 
-        innerData.accept(.loading)
+        let tableDataBefore = innerData.value.tableData
+        if tableDataBefore?.rows.count ?? 0 == 0 {
+            // show loading indicator only for the first page
+            innerData.accept(.loading)
+        }
+
         let movies: Driver<SearchResponse> = service
-            .search(query: query, page: 1)
+            .search(query: query, page: pageIndex)
             .asDriver(onErrorRecover: { error in
                 let err = (error as? LocalizedError)?.localizedDescription ?? ""
                 innerData.accept(.error(err))
@@ -145,16 +153,18 @@ class MovieListViewModel {
             })
 
         movies
-            .map { arr in
-                let arr = arr.results.map { movie in
+            .map { page in
+                let arr = page.results.map { movie in
                     return MovieCellViewModel(movie: movie, didSelect: {
                         innerDidSelectMovie.accept(movie)
                     })
                 }
-                return arr
-            }
-            .map {
-                innerData.accept(.rows($0))
+
+                let allArr = (tableDataBefore?.rows ?? []) + arr
+                let tableData = TableData(rows: allArr,
+                                          page: page.page,
+                                          hasMore: page.hasMore)
+                innerData.accept(.rows(tableData))
             }
             .drive()
             .disposed(by: disposeBag)

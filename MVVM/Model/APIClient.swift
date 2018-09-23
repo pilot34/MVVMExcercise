@@ -64,10 +64,6 @@ extension APIClientProtocol {
                 do {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd"
-                    dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                    decoder.dateDecodingStrategy = .formatted(dateFormatter)
                     let result = try decoder.decode(T.self, from: $0)
                     return result
                 } catch let e {

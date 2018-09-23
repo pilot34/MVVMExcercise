@@ -9,12 +9,30 @@
 import Foundation
 import RxSwift
 
+private let dateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+    return dateFormatter
+}()
+
 struct Movie: Codable, Equatable {
     let id: Int
     let title: String
     let overview: String?
-    let releaseDate: Date?
+    let releaseDate: String?
     let posterPath: String?
+
+    var releaseDateTyped: Date? {
+        // we don't parse dates in dateDecodingStrategy of JSONDecoder,
+        // because backend returns empty strings sometimes
+        // so the whole parsing process is failed because of wrong
+        // date format
+        guard let releaseDate = releaseDate else {
+            return nil
+        }
+        return dateFormatter.date(from: releaseDate)
+    }
 }
 
 struct SearchResponse: Codable {
@@ -28,6 +46,10 @@ struct SearchResponse: Codable {
                               totalResults: 0,
                               totalPages: 0,
                               results: [])
+    }
+
+    var hasMore: Bool {
+        return page < totalPages && results.count > 0
     }
 }
 
