@@ -121,7 +121,7 @@ class MovieListViewModel {
                 return .empty()
             })
 
-        let viewModels: Driver<Void> = movies
+        movies
             .map { arr in
                 let arr = arr.results.map { movie in
                     return MovieCellViewModel(movie: movie, didSelect: {
@@ -133,7 +133,7 @@ class MovieListViewModel {
             .map {
                 innerData.accept(.rows($0))
             }
-
-        viewModels.drive().disposed(by: disposeBag)
+            .drive()
+            .disposed(by: disposeBag)
     }
 }

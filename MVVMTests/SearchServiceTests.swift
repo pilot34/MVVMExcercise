@@ -19,7 +19,7 @@ class SearchServiceTests: XCTestCase {
         let client = MockAPIClient(file: "movies")
         let service = MovieService(client: client)
 
-        let search = scheduler.record(service.search(query: "blabla"))
+        let search = scheduler.record(service.search(query: "blabla", page: 1))
         scheduler.start()
         XCTAssertEqual(2, search.events.count)
         let response = search.events.first?.value.element

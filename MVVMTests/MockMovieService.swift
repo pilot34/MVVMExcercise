@@ -9,6 +9,7 @@
 import Foundation
 import RxCocoa
 import RxSwift
+import RxTest
 @testable import MVVM
 
 class MockMovieService: MovieServiceProtocol {
@@ -45,7 +46,7 @@ class MockMovieService: MovieServiceProtocol {
 
     var lastQuery: String? = nil
 
-    func search(query: String) -> Single<SearchResponse> {
+    func search(query: String, page: Int) -> Single<SearchResponse> {
         self.lastQuery = query
         if let result = result {
             return Single.just(result)
