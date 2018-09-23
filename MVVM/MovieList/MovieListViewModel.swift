@@ -64,13 +64,12 @@ class MovieListViewModel {
 
     // MARK: - Input
 
-    let refreshTriggered: PublishRelay<Void> = PublishRelay()
-    let loadMoreTriggered: PublishRelay<Void> = PublishRelay()
+    let refreshTriggered = PublishRelay<Void>()
+    let loadMoreTriggered = PublishRelay<Void>()
 
     // MARK: - Inner relays
 
-    private let innerData: BehaviorRelay<State> = BehaviorRelay(value: .empty)
-    private let innerDidSelectMovie: PublishRelay<Movie> = PublishRelay()
+    private let innerData = BehaviorRelay<State>(value: .empty)
 
     private var data: Driver<State> {
         return innerData.asDriver()
@@ -135,7 +134,6 @@ class MovieListViewModel {
     }
 
     private func loadPage(pageIndex: Int) {
-        let innerDidSelectMovie = self.innerDidSelectMovie
         let innerData = self.innerData
 
         let tableDataBefore = innerData.value.tableData
@@ -153,9 +151,7 @@ class MovieListViewModel {
             })
             .map { page in
                 let arr = page.results.map { movie in
-                    return MovieCellViewModel(movie: movie, didSelect: {
-                        innerDidSelectMovie.accept(movie)
-                    })
+                    return MovieCellViewModel(movie: movie)
                 }
 
                 let allArr = (tableDataBefore?.rows ?? []) + arr

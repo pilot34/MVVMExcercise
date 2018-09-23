@@ -9,11 +9,15 @@
 import Foundation
 
 class Dependencies {
-    let client: APIClient
-    let movies: MovieService
+    let client: APIClientProtocol
+    let movies: MovieServiceProtocol
+    let suggestions: SuggestionServiceProtocol
+    let storage: StorageProtocol
 
     init() {
         client = APIClient(baseURL: baseURL)
         movies = MovieService(client: client)
+        storage = UserDefaultsStorage()
+        suggestions = SuggestionService(storage: storage)
     }
 }

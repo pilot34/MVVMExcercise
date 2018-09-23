@@ -29,7 +29,7 @@
                                 <rect key="frame" x="16" y="251.5" width="269" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES" smartDashesType="no"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ayJ-Iq-FRx">
                                 <rect key="frame" x="0.0" y="281.5" width="0.0" height="385.5"/>
@@ -50,6 +50,34 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ciL-d6-eZu">
                                 <rect key="frame" x="320" y="256.5" width="20" height="20"/>
                             </activityIndicatorView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iXt-zi-w4U">
+                                <rect key="frame" x="0.0" y="301.5" width="375" height="365.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="0ZV-Ai-R2z">
+                                    <rect key="frame" x="0.0" y="72" width="375" height="0.0"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SuggestionCell" textLabel="n8g-gA-2tb" style="IBUITableViewCellStyleDefault" id="Sie-6V-2hh">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Sie-6V-2hh" id="nXj-84-rtB">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n8g-gA-2tb">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.37254901959999998" green="0.67843137249999996" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -60,8 +88,11 @@
                             <constraint firstItem="ciL-d6-eZu" firstAttribute="centerY" secondItem="u9X-oc-ONP" secondAttribute="centerY" id="CVy-in-I9J"/>
                             <constraint firstItem="u9X-oc-ONP" firstAttribute="centerY" secondItem="I50-lR-rBt" secondAttribute="centerY" id="CpX-Ms-6Ta"/>
                             <constraint firstItem="wbm-rv-HnE" firstAttribute="top" secondItem="bTw-Oz-6fD" secondAttribute="top" id="DTh-A2-BKz"/>
+                            <constraint firstItem="iXt-zi-w4U" firstAttribute="leading" secondItem="bTw-Oz-6fD" secondAttribute="leading" id="K7u-R6-1T6"/>
+                            <constraint firstItem="iXt-zi-w4U" firstAttribute="top" secondItem="u9X-oc-ONP" secondAttribute="bottom" constant="5" id="KTw-U0-V36"/>
                             <constraint firstItem="u9X-oc-ONP" firstAttribute="leading" secondItem="I50-lR-rBt" secondAttribute="trailing" id="Kg6-b9-7tw"/>
                             <constraint firstItem="I50-lR-rBt" firstAttribute="top" secondItem="wbm-rv-HnE" secondAttribute="bottom" id="LXE-F7-35m"/>
+                            <constraint firstItem="iXt-zi-w4U" firstAttribute="bottom" secondItem="bTw-Oz-6fD" secondAttribute="bottom" id="UAD-jP-xEf"/>
                             <constraint firstItem="wbm-rv-HnE" firstAttribute="height" secondItem="ayJ-Iq-FRx" secondAttribute="height" multiplier="0.6" id="WZI-np-kgO"/>
                             <constraint firstItem="wbm-rv-HnE" firstAttribute="leading" secondItem="bTw-Oz-6fD" secondAttribute="leading" id="XgJ-uA-Zse"/>
                             <constraint firstItem="bTw-Oz-6fD" firstAttribute="right" secondItem="u9X-oc-ONP" secondAttribute="right" id="btg-le-iIj"/>
@@ -69,27 +100,30 @@
                             <constraint firstItem="ayJ-Iq-FRx" firstAttribute="leading" secondItem="bTw-Oz-6fD" secondAttribute="leading" id="k9E-hq-AOq"/>
                             <constraint firstItem="I50-lR-rBt" firstAttribute="leading" secondItem="bTw-Oz-6fD" secondAttribute="leading" constant="16" id="nJY-6F-buw"/>
                             <constraint firstItem="ayJ-Iq-FRx" firstAttribute="bottom" secondItem="bTw-Oz-6fD" secondAttribute="bottom" id="rUN-Fv-Gkh"/>
+                            <constraint firstItem="iXt-zi-w4U" firstAttribute="trailing" secondItem="bTw-Oz-6fD" secondAttribute="trailing" id="xKI-m1-3O8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bTw-Oz-6fD"/>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="sMy-Yd-8ZV" appends="YES" id="RJX-BK-jYy"/>
+                            <outletCollection property="gestureRecognizers" destination="JBZ-wG-SYb" appends="YES" id="Izm-7X-G9j"/>
                         </connections>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="ciL-d6-eZu" id="vF1-bM-WV6"/>
                         <outlet property="searchButton" destination="u9X-oc-ONP" id="LXl-2Q-Zri"/>
+                        <outlet property="suggestionsTableView" destination="iXt-zi-w4U" id="ozu-Vg-00f"/>
                         <outlet property="textField" destination="I50-lR-rBt" id="QcZ-xW-Y8J"/>
                         <outlet property="topBottomRatioWithoutKeyboardConstraint" destination="WZI-np-kgO" id="JRX-XC-2co"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yCL-Y7-6nc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="sMy-Yd-8ZV">
+                <tapGestureRecognizer id="JBZ-wG-SYb">
                     <connections>
-                        <action selector="resignResponder" destination="wsE-wD-MAi" id="GDA-u2-B5O"/>
+                        <action selector="resignResponder" destination="wsE-wD-MAi" id="WGu-Wt-N1t"/>
+                        <outlet property="delegate" destination="wsE-wD-MAi" id="A73-TN-hRv"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-716" y="134"/>
+            <point key="canvasLocation" x="-716" y="133.5832083958021"/>
         </scene>
         <!--Movie List View Controller-->
         <scene sceneID="tne-QT-ifu">

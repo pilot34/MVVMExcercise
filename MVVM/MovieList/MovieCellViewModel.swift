@@ -16,8 +16,6 @@ struct MovieCellViewModel {
     let releaseDate: String?
     let overview: String?
 
-    let didSelect: () -> Void
-
     private static let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateStyle = .short
@@ -25,7 +23,7 @@ struct MovieCellViewModel {
         return df
     }()
 
-    init(movie: Movie, didSelect: @escaping () -> Void) {
+    init(movie: Movie) {
         title = movie.title
         overview = movie.overview
 
@@ -40,7 +38,5 @@ struct MovieCellViewModel {
         } else {
             posterURL = nil
         }
-
-        self.didSelect = didSelect
     }
 }

@@ -21,7 +21,8 @@ class Router: RouterProtocol {
 
     func rootViewController() -> UIViewController {
         let vc = mainStoryboard.instantiate(type: SearchViewController.self)
-        let viewModel = SearchViewModel(service: dependencies.movies,
+        let viewModel = SearchViewModel(movies: dependencies.movies,
+                                        suggestions: dependencies.suggestions,
                                         router: self)
         vc.viewModel = viewModel
         let nav = UINavigationController(rootViewController: vc)

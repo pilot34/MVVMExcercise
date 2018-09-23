@@ -14,7 +14,8 @@ import RxCocoa
 
 class SearchViewModelTests: XCTestCase {
     func testSearchButtonIsEnabledAndDisabledCorrectly() {
-        let vm = SearchViewModel(service: MockMovieService.simple(),
+        let vm = SearchViewModel(movies: MockMovieService.simple(),
+                                 suggestions: MockSuggestionService(),
                                  router: MockRouter())
         let scheduler = TestScheduler()
 
@@ -46,7 +47,8 @@ class SearchViewModelTests: XCTestCase {
 
     func testErrorIsShownIfNoMovieFound() {
         let router = MockRouter()
-        let vm = SearchViewModel(service: MockMovieService.empty,
+        let vm = SearchViewModel(movies: MockMovieService.empty,
+                                 suggestions: MockSuggestionService(),
                                  router: router)
 
         // check that if we got empty results
@@ -59,7 +61,8 @@ class SearchViewModelTests: XCTestCase {
 
     func testSearchIsShownAfterValidText() {
         let router = MockRouter()
-        let vm = SearchViewModel(service: MockMovieService.simple(),
+        let vm = SearchViewModel(movies: MockMovieService.simple(),
+                                 suggestions: MockSuggestionService(),
                                  router: router)
 
         XCTAssertEqual(router.lastCall, LastCall.none)
@@ -78,7 +81,8 @@ class SearchViewModelTests: XCTestCase {
 
     func testErrorIsShownAfterInvalidText() {
         let router = MockRouter()
-        let vm = SearchViewModel(service: MockMovieService.simple(),
+        let vm = SearchViewModel(movies: MockMovieService.simple(),
+                                 suggestions: MockSuggestionService(),
                                  router: router)
 
         XCTAssertEqual(router.lastCall, LastCall.none)

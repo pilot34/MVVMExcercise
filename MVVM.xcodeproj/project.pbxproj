@@ -29,6 +29,11 @@
 		F7557C8F2157D956009FEC9F /* MovieCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7557C8E2157D956009FEC9F /* MovieCellViewModel.swift */; };
 		F7557C912157DC11009FEC9F /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7557C902157DC11009FEC9F /* MovieCell.swift */; };
 		F7557C932157DDD5009FEC9F /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7557C922157DDD5009FEC9F /* UITableView+Extensions.swift */; };
+		F7557C9521583559009FEC9F /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7557C9421583559009FEC9F /* Storage.swift */; };
+		F7557C9921583913009FEC9F /* SuggestionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7557C9821583913009FEC9F /* SuggestionServiceTests.swift */; };
+		F7557C9B2158398B009FEC9F /* SuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7557C9A2158398B009FEC9F /* SuggestionService.swift */; };
+		F7557C9D21583A2C009FEC9F /* MockStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7557C9C21583A2C009FEC9F /* MockStorage.swift */; };
+		F7557C9F21583BA9009FEC9F /* MockSuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7557C9E21583BA9009FEC9F /* MockSuggestionService.swift */; };
 		F766A6212156DC2300C2AB5B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F766A6202156DC2300C2AB5B /* SearchViewController.swift */; };
 		F766A6232156DC2C00C2AB5B /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F766A6222156DC2C00C2AB5B /* SearchViewModel.swift */; };
 		F7BD139C213F3AE100C3144B /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BD139B213F3AE100C3144B /* Dependencies.swift */; };
@@ -77,6 +82,11 @@
 		F7557C8E2157D956009FEC9F /* MovieCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCellViewModel.swift; sourceTree = "<group>"; };
 		F7557C902157DC11009FEC9F /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		F7557C922157DDD5009FEC9F /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
+		F7557C9421583559009FEC9F /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		F7557C9821583913009FEC9F /* SuggestionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionServiceTests.swift; sourceTree = "<group>"; };
+		F7557C9A2158398B009FEC9F /* SuggestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionService.swift; sourceTree = "<group>"; };
+		F7557C9C21583A2C009FEC9F /* MockStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorage.swift; sourceTree = "<group>"; };
+		F7557C9E21583BA9009FEC9F /* MockSuggestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSuggestionService.swift; sourceTree = "<group>"; };
 		F766A6202156DC2300C2AB5B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		F766A6222156DC2C00C2AB5B /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		F7BD139B213F3AE100C3144B /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
@@ -166,15 +176,13 @@
 		F74E7558211B99CE0096EED3 /* MVVMTests */ = {
 			isa = PBXGroup;
 			children = (
-				F74E755B211B99CE0096EED3 /* Info.plist */,
-				F74E7580211BA0290096EED3 /* movies.json */,
-				F74E7582211BA0990096EED3 /* MockAPIClient.swift */,
-				F7D5861D21446CFA007F7ABD /* MockMovieService.swift */,
-				F7557C882156F76A009FEC9F /* MovieListViewModelTests.swift */,
+				F7557CA221583D75009FEC9F /* TestData */,
+				F7557CA121583D69009FEC9F /* Utils */,
+				F7557CA021583D58009FEC9F /* Mocks */,
 				F74E757E211BA0030096EED3 /* SearchServiceTests.swift */,
+				F7557C9821583913009FEC9F /* SuggestionServiceTests.swift */,
 				F718FA5E2141F46F002B911D /* SearchViewModelTests.swift */,
-				F7D5861F21446F1E007F7ABD /* TestScheduler+Extensions.swift */,
-				F7557C862156F5C6009FEC9F /* MockRouter.swift */,
+				F7557C882156F76A009FEC9F /* MovieListViewModelTests.swift */,
 			);
 			path = MVVMTests;
 			sourceTree = "<group>";
@@ -196,8 +204,39 @@
 				F74E757C211B9BEF0096EED3 /* APIClient.swift */,
 				F7BD139B213F3AE100C3144B /* Dependencies.swift */,
 				F7BD139D213F3B7C00C3144B /* Constants.swift */,
+				F7557C9421583559009FEC9F /* Storage.swift */,
+				F7557C9A2158398B009FEC9F /* SuggestionService.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		F7557CA021583D58009FEC9F /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				F74E7582211BA0990096EED3 /* MockAPIClient.swift */,
+				F7D5861D21446CFA007F7ABD /* MockMovieService.swift */,
+				F7557C862156F5C6009FEC9F /* MockRouter.swift */,
+				F7557C9C21583A2C009FEC9F /* MockStorage.swift */,
+				F7557C9E21583BA9009FEC9F /* MockSuggestionService.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		F7557CA121583D69009FEC9F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F7D5861F21446F1E007F7ABD /* TestScheduler+Extensions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		F7557CA221583D75009FEC9F /* TestData */ = {
+			isa = PBXGroup;
+			children = (
+				F74E755B211B99CE0096EED3 /* Info.plist */,
+				F74E7580211BA0290096EED3 /* movies.json */,
+			);
+			path = TestData;
 			sourceTree = "<group>";
 		};
 		F766A61F2156DC1700C2AB5B /* Search */ = {
@@ -391,6 +430,8 @@
 				F74E7576211B9AE30096EED3 /* UIStoryboard+Extensions.swift in Sources */,
 				F74E7545211B99CC0096EED3 /* AppDelegate.swift in Sources */,
 				F74E757D211B9BEF0096EED3 /* APIClient.swift in Sources */,
+				F7557C9521583559009FEC9F /* Storage.swift in Sources */,
+				F7557C9B2158398B009FEC9F /* SuggestionService.swift in Sources */,
 				F718FA5D2141E88C002B911D /* Observable+Extensions.swift in Sources */,
 				F7BD139E213F3B7C00C3144B /* Constants.swift in Sources */,
 			);
@@ -403,8 +444,11 @@
 				F7557C872156F5C6009FEC9F /* MockRouter.swift in Sources */,
 				F7557C892156F76A009FEC9F /* MovieListViewModelTests.swift in Sources */,
 				F74E757F211BA0030096EED3 /* SearchServiceTests.swift in Sources */,
+				F7557C9F21583BA9009FEC9F /* MockSuggestionService.swift in Sources */,
+				F7557C9D21583A2C009FEC9F /* MockStorage.swift in Sources */,
 				F74E7583211BA0990096EED3 /* MockAPIClient.swift in Sources */,
 				F718FA5F2141F46F002B911D /* SearchViewModelTests.swift in Sources */,
+				F7557C9921583913009FEC9F /* SuggestionServiceTests.swift in Sources */,
 				F7D5862021446F1E007F7ABD /* TestScheduler+Extensions.swift in Sources */,
 				F7D5861E21446CFA007F7ABD /* MockMovieService.swift in Sources */,
 			);
@@ -601,7 +645,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = MVVMTests/Info.plist;
+				INFOPLIST_FILE = MVVMTests/TestData/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -623,7 +667,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = MVVMTests/Info.plist;
+				INFOPLIST_FILE = MVVMTests/TestData/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
