@@ -164,7 +164,7 @@
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gJn-RW-RfX" secondAttribute="bottom" constant="20" id="Q9L-qq-AER"/>
                                                 <constraint firstItem="1nR-Ib-fib" firstAttribute="leading" secondItem="bzQ-ZV-2Au" secondAttribute="leading" constant="20" id="WFg-3d-jxW"/>
                                                 <constraint firstItem="gJn-RW-RfX" firstAttribute="trailing" secondItem="bzQ-ZV-2Au" secondAttribute="trailingMargin" id="vRp-dP-Hkh"/>
-                                                <constraint firstItem="1nR-Ib-fib" firstAttribute="width" secondItem="bzQ-ZV-2Au" secondAttribute="width" multiplier="1:4" id="wId-9z-oil"/>
+                                                <constraint firstItem="1nR-Ib-fib" firstAttribute="width" secondItem="bzQ-ZV-2Au" secondAttribute="width" multiplier="1:4" priority="999" id="wId-9z-oil"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="1nR-Ib-fib" secondAttribute="bottom" constant="20" id="ySA-dg-gda"/>
                                             </constraints>
                                         </tableViewCellContentView>
