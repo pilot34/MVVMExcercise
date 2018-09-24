@@ -2,9 +2,9 @@ PODS:
   - Nuke (7.4)
   - RxCocoa (4.3.1):
     - RxSwift (~> 4.0)
-  - RxKeyboard (0.8.3):
-    - RxCocoa (>= 4.1.0)
-    - RxSwift (>= 4.1.0)
+  - RxKeyboard (0.9.0):
+    - RxCocoa (>= 4.3.1)
+    - RxSwift (>= 4.3.1)
   - RxSwift (4.3.1)
   - RxTest (4.3.1):
     - RxSwift (~> 4.0)
@@ -29,7 +29,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Nuke: 2a1a0166bf522257c1fc1be4cad5e60b7960c789
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
-  RxKeyboard: e5efbaa109c35be909dd888e53de0f0efdf5169e
+  RxKeyboard: 4f782303f499f41577b41c96c6a9a5d7acd51a47
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
   RxTest: ea97a208826906f3904c0debdd09575ebcbfe216
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
