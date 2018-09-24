@@ -13,6 +13,9 @@ import RxCocoa
 @testable import MVVM
 
 class SearchViewModelTests: XCTestCase {
+
+    private let disposeBag = DisposeBag()
+
     func testSearchButtonIsEnabledAndDisabledCorrectly() {
         let vm = SearchViewModel(movies: MockMovieService.simple(),
                                  suggestions: MockSuggestionService(),
@@ -28,7 +31,6 @@ class SearchViewModelTests: XCTestCase {
             .next(200, "test2" as String?),
         ]).asDriver(onErrorJustReturn: nil)
 
-        let disposeBag = DisposeBag()
         search.drive(vm.searchText).disposed(by: disposeBag)
 
         let buttonIsEnabled = scheduler.record(vm.searchButtonIsEnabled)
@@ -130,5 +132,36 @@ class SearchViewModelTests: XCTestCase {
         vm.searchTapped.accept(())
         XCTAssertEqual(router.lastCall,
                        LastCall.showError(text: "Minimum search query length is 2 symbols"))
+    }
+
+    func testSuggestions() {
+        let suggestions = MockSuggestionService()
+        suggestions.suggestions = ["test1", "test2"]
+
+        let vm = SearchViewModel(movies: MockMovieService(),
+                                 suggestions: suggestions,
+                                 router: MockRouter())
+
+        let scheduler = TestScheduler()
+        let text = scheduler.createColdObservable([
+            .next(100, "test1")
+        ]).asDriver(onErrorJustReturn: "")
+
+        // we patch SuggestionService output when searchText was changed
+        vm.searchText.subscribe(onNext: { text in
+            if text == "test1" {
+                suggestions.suggestions = ["test1"]
+            }
+        }).disposed(by: disposeBag)
+
+        let suggestionsToShow = scheduler.record(vm.suggestionsToShow)
+        text.drive(vm.searchText)
+            .disposed(by: disposeBag)
+        scheduler.start()
+
+        XCTAssertEqual(suggestionsToShow.events, [
+            .next(0, [ "Test1", "Test2" ]), // initial suggestions
+            .next(100, [ "Test1" ]), // after text was changed
+        ])
     }
 }
