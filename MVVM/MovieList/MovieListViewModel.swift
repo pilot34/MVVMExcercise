@@ -59,7 +59,7 @@ class MovieListViewModel {
     private let disposeBag = DisposeBag()
 
     var title: String {
-        return "Search Places"
+        return query.capitalized
     }
 
     // MARK: - Input

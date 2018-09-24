@@ -113,6 +113,8 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     private func bindSuggestions() {
+        // hide suggestions when keyboard is hidden
+        // or we have no suggestions
         Driver.combineLatest(
             RxKeyboard.instance.isHidden,
             viewModel.suggestionsToShow)
@@ -125,6 +127,7 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate {
             .drive(suggestionsTableView.rx.alpha)
             .disposed(by: disposeBag)
 
+        // display cells in suggestionsTableView
         viewModel.suggestionsToShow
             .asObservable()
             .bind(to: suggestionsTableView.rx
@@ -135,12 +138,13 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate {
                     }
             .disposed(by: disposeBag)
 
-        // send tapped suggestion to textField
+        // send tapped suggestion to textField to change text
         suggestionsTableView.rx
             .modelSelected(String.self)
             .bind(to: textField.rx.value)
             .disposed(by: disposeBag)
 
+        // send tapped suggestion to viewModel to open new screen
         suggestionsTableView.rx
             .modelSelected(String.self)
             .bind(to: viewModel.suggestionTapped)
@@ -172,8 +176,8 @@ class SearchViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - UIGestureRecognizerDelegate
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        // we user tap recognizer to hide keyboard when user taps on empty space
-        // but we should cancel touches if they are on suggestionTableView.cell
+        // we use tap recognizer to hide keyboard when user taps on empty space
+        // but we should decline touches if they are on suggestionTableView.cell
         if let view = touch.view, viewIsInsideCell(view: view) {
             return false
         }
