@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxKeyboard
 
+/// First screen with the search field
 class SearchViewController: UIViewController, UIGestureRecognizerDelegate {
     var viewModel: SearchViewModel!
     private let disposeBag = DisposeBag()

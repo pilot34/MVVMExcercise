@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// Class stores all needed objects to construct
+/// view controllers and view models
 class Dependencies {
     let client: APIClientProtocol
     let movies: MovieServiceProtocol

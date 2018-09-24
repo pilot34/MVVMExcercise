@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+/// Screen with the movies list searched by query
 class MovieListViewController: UIViewController {
 
     var viewModel: MovieListViewModel!
@@ -48,8 +49,9 @@ class MovieListViewController: UIViewController {
         viewModel.cells.bind(to: tableView.rx
             .items(cellIdentifier: String(describing: MovieCell.self),
                    cellType: MovieCell.self)) { _, element, cell in
-            cell.display(viewModel: element)
-        }.disposed(by: disposeBag)
+                       cell.display(viewModel: element)
+                   }
+            .disposed(by: disposeBag)
 
         tableView.rx.nearBottomEdge
             .emit(to: viewModel.loadMoreTriggered)
