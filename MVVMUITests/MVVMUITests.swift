@@ -52,6 +52,8 @@ class MVVMUITests: XCTestCase {
         field.buttons["Clear text"].tap()
 
         // check that we have "Bond" suggestion
+        // if this line failed, be sure that keyboard is opening when you tap
+        // on a text field in the simulator
         XCTAssert(app.cells.staticTexts["Bond"].firstMatch.exists)
     }
 }
